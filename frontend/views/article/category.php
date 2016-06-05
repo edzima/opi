@@ -11,7 +11,7 @@ $this->title = Yii::t('frontend', 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-category">
-    <h1><?= Yii::t('frontend', ' &laquo;{title}&raquo;', ['title' => $model->title]) ?></h1>
+    <h1><?= Yii::t('frontend', ' {title}', ['title' => $model->title]) ?></h1>
 
     <div class="row">
         <div class="col-md-9">
@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'itemView' => '_item',
                 'summary' => false,
+				
             ]) ?>
         </div>
 
