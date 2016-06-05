@@ -34,7 +34,8 @@
         "bower-asset/font-awesome": "*",
         "bower-asset/open-sans-fontface": "*",
         "bower-asset/highlightjs": "*",
-        "bower-asset/jquery-slimscroll": "*"
+        "bower-asset/jquery-slimscroll": "*",
+        "rmrevin/yii2-comments": "~1.4"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

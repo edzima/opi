@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\web\IdentityInterface;
+//use yii\web\IdentityInterface;
 use common\models\query\UserQuery;
 
 /**
@@ -25,7 +25,9 @@ use common\models\query\UserQuery;
  *
  * @property UserProfile $userProfile
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord     implements
+        \yii\web\IdentityInterface,
+        \rmrevin\yii\module\Comments\interfaces\CommentatorInterface
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
@@ -235,4 +237,23 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return new UserQuery(get_called_class());
     }
+	
+	
+	// do komentarzy 
+	
+	  public function getCommentatorAvatar()
+    {
+        return $this->avatar_url;
+    }
+
+    public function getCommentatorName()
+    {
+        return $this->username;
+    }
+
+    public function getCommentatorUrl()
+    {
+        return ['/profile', 'id' => $this->id]; // or false, if user does not have a public page
+    }
+
 }

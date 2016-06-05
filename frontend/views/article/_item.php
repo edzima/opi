@@ -18,14 +18,10 @@ Highlight::register($this);
         <?= Html::a($model->title, ['view', 'slug' => $model->slug]) ?>
     </h2>
 
-    <div class="article-meta">
-        <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asDatetime($model->created_at) ?>
-        <span class="glyphicon glyphicon-folder-close"></span> <?= Html::a($model->category->title, ['article/category', 'slug' => $model->category->slug]) ?>
-        <span class="glyphicon glyphicon-user"></span> <?= Html::a($model->author->username, ['account/default/view', 'id' => $model->author->id]) ?>
-    </div>
+  
 
     <div class="article-text">
-        <?= HtmlPurifier::process($model->preview) ?>
+        <?= HtmlPurifier::process(substr ($model->preview,0,500)) ?>
     </div>
 
     <?php if ($model->tagValues) : ?>

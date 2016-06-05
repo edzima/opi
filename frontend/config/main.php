@@ -17,6 +17,11 @@ $config = [
         'noty' => [
             'class' => 'lo\modules\noty\Module',
         ],
+		'comments' => [
+            'class' => 'rmrevin\yii\module\Comments\Module',
+            'userIdentityClass' => 'common\models\User',
+            'useRbac' => false,
+        ]
     ],
     'components' => [
         'urlManager' => require(__DIR__ . '/_urlManager.php'),
