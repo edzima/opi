@@ -9,8 +9,9 @@ use yii\widgets\ListView;
 $this->title = Yii::t('frontend', 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+ 
 <div class="article-index">
-    <h1><?= Yii::t('frontend', 'Articles') ?></h1>
+ 
 
     <div class="row">
         <div class="col-md-9">

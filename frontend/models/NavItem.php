@@ -34,5 +34,8 @@ class NavItem extends Model
         }
 
         return $items;
+	
     }
+	
+	
 }

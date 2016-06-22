@@ -77,9 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		
             </div>
 		
-		
-
-			
         </div>
     </article>
 </div>
