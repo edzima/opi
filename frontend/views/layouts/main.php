@@ -10,6 +10,9 @@ use frontend\assets\AppAsset;
 use frontend\models\NavItem;
 use lo\modules\noty\widgets\Wrapper;
 
+use common\models\ArticleCategory;
+
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -27,6 +30,11 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+
+<?php
+//print_r(ArticleCategory::getCategoryMenu());
+//echo $BlaBla;
+ ?>
 
 <div class="wrap">
     <?php NavBar::begin([
@@ -73,7 +81,19 @@ AppAsset::register($this);
     ]);
     NavBar::end() ?>
 
+
+	
     <div class="container">
+		<div class="article-category-item">
+		<?= Nav::widget([
+			'items' => ArticleCategory::getCategoryMenu(),
+			'options' => [
+				'class' => 'nav-pills',
+			],
+			'activateParents' => 'true'
+		]) ?>
+		</div>
+		
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -81,6 +101,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+
 
 <footer class="footer">
     <div class="container">

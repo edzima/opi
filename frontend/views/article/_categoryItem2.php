@@ -3,9 +3,7 @@
 use yii\bootstrap\Nav;
 
 /* @var $this yii\web\View */
-print_r($menuItems[0]);
-//$podCat = var_dump($menuItems[0]);
-//print_r($podCat);
+
 ?>
 
 <div class="article-category-item">
@@ -14,5 +12,6 @@ print_r($menuItems[0]);
         'options' => [
             'class' => 'nav-pills',
         ],
+		'activateParents' => 'true'
     ]) ?>
 </div>

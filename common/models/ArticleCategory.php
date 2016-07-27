@@ -91,6 +91,17 @@ class ArticleCategory extends ActiveRecord
     {
         return $this->hasMany(Article::className(), ['category_id' => 'id']);
     }
+	
+	// search main Parent Id Category
+	public function recursive_array_search($needle,$haystack) {
+		foreach($haystack as $key=>$value) {
+			$current_key=$key;
+			if($needle===$value OR (is_array($value) && $this->recursive_array_search($needle,$value) !== false)) {
+				return $current_key;
+			}
+		}
+		return false;
+	}
 
     /**
      * @return \yii\db\ActiveQuery
@@ -116,4 +127,26 @@ class ArticleCategory extends ActiveRecord
     {
         return new ArticleCategoryQuery(get_called_class());
     }
+	
+	 
+	
+	public static function getCategoryMenu(array $models = null)
+    {
+        $items = [];
+        if ($models === null) {
+            $models = ArticleCategory::find()->where(['parent_id' => null])->with('childs')->orderBy(['id' => SORT_ASC])->active()->all();
+        }
+        foreach ($models as $model) {
+            $items[] = [
+                'url' => ['article/category', 'slug' => $model->slug],
+                'label' => $model->title,
+                'items' => self::getCategoryMenu($model->childs),
+            ];
+        }
+
+        return $items;
+    }
+	
+	
+
 }

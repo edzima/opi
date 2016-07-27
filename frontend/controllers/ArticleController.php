@@ -84,8 +84,19 @@ class ArticleController extends Controller
             throw new NotFoundHttpException(Yii::t('frontend', 'Page not found.'));
         }
 
-        $query = Article::find()->with('tags')->joinWith('category')->where('{{%article_category}}.slug = :slug', [':slug' => $slug])->published();
-
+		// check the category have childs and query 
+		$childs = $model -> childs;
+		if($childs){
+			$idChilds = array();
+			foreach($childs as $child){
+				$idChilds[] = $child['id'];
+			}
+					 
+			$query = Article::find()->with('tags')->joinWith('category')->	where(['{{%article_category}}.id'=>$idChilds])->published();
+		}
+		// org     $query = Article::find()->with('tags')->joinWith('category')->where('{{%article_category}}.slug = :slug', [':slug' => $slug])->published();
+		else $query = Article::find()->with('tags')->joinWith('category')->where(['{{%article_category}}.id'=>$model->id])->published();
+		
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -96,8 +107,9 @@ class ArticleController extends Controller
         $dataProvider->sort = [
             'defaultOrder' => ['created_at' => SORT_DESC],
         ];
-
-        return $this->render('category', [
+	
+        
+		return $this->render('category', [
             'model' => $model,
             'dataProvider' => $dataProvider,
             'menuItems' => self::getMenuItems(),
@@ -159,4 +171,6 @@ class ArticleController extends Controller
 
         return $items;
     }
+	
+
 }

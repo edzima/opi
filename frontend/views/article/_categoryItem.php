@@ -11,6 +11,8 @@ use yii\bootstrap\Nav;
         'items' => $menuItems,
         'options' => [
             'class' => 'nav nav-pills nav-stacked',
+			
         ],
+		'activateParents' => 'true'
     ]) ?>
 </div>

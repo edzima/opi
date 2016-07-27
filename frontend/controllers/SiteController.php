@@ -6,12 +6,16 @@ use Yii;
 use yii\web\Controller;
 use frontend\models\ContactForm;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
+use common\models\ArticleCategory;
 
 /**
  * Class SiteController.
  */
 class SiteController extends Controller
 {
+	
+	
+
     /**
      * @inheritdoc
      */
@@ -38,7 +42,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+			
+        return $this->render('index',[
+			'categoriesItem' => self::getCategoriesMenu(),
+			'raz' => 'raz z konrolera',
+		]);
     }
 
     /**
@@ -63,4 +71,25 @@ class SiteController extends Controller
             ]);
         }
     }
+		public static function getCategoriesMenu(array $models = null)
+    {
+        $items = [];
+        if ($models === null) {
+            $models = ArticleCategory::find()->where(['parent_id' => null])->with('childs')->orderBy(['id' => SORT_ASC])->active()->all();
+        }
+        foreach ($models as $model) {
+            $items[] = [
+                'url' => ['article/category', 'slug' => $model->slug],
+                'label' => $model->title,
+                'items' => self::getCategoriesMenu($model->childs),
+            ];
+        }
+
+        return $items;
+    }
+	
+
+	
+   
+
 }
